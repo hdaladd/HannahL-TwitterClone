@@ -7,6 +7,19 @@ body{
     height: 100%;
 }
 
+.main-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 40px 0px;
+    border-bottom: 1px solid #ccc;
+}
+
+img.logo {
+    height: 1%;
+    width: 25px;
+}
+
 .content {
     max-width: 600px;
     height: 100%;
@@ -78,6 +91,10 @@ Post
 
 .posts li .logo img{
     width: 60%;
+}
+
+.posts .name_body .like_icon{
+    width: 5%;
 }
 
 .posts li .name_body {

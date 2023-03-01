@@ -27,3 +27,28 @@ def delete(request, post_id):
     post = Post.objects.get(id = post_id)
     post.delete()
     return HttpResponseRedirect('/')
+
+def like(request, post_id):
+    count = Post.objects.get(id= post_id)
+    if count.count == 0:
+        count.count += 1
+        count.save()
+    elif count.count >= 1:
+        count.count -= 1
+        count.save()
+    return HttpResponseRedirect('/')
+
+
+def edit(request, post_id):
+    post = Post.objects.get(id=post_id)
+    if request.method == "POST":
+        form = PostForm(request.POST, request.FILES, instance=post)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/')
+        else:
+            return HttpResponseRedirect(form.errors.as_json())
+
+    form = PostForm   
+    
+    return render(request, 'edit.html', {'post': post,'form':form})

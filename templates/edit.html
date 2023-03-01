@@ -1,0 +1,50 @@
+{% extends "base.html" %} {% block content %} {% load static %}
+
+<!--This is the container for the top heading of the page.-->
+
+<div class="container">
+    <div class="main">
+        <div class="main-header">
+            <img src="{% static 'img/techis-logo.png' %}" class="logo" />
+            <h1>Edit</h1>
+        </div>
+    </div>
+
+</div>
+
+<!--This is the End of top-->
+
+<!--Post button to repost tweet again-->
+
+<section class="post_form">
+    <form action="/edit/{{post.id}}/" method="POST" enctype="multipart/form-data">
+{% csrf_token %}
+    <input type="text" name="name" placeholder="Name" value="{{post.name}}" required/><br>
+        <textarea name="body" placeholder="Tell us anything!"  required>{{post.body}}</textarea><br>
+        {% if post.image %}
+            <img
+              src="{{post.image.url}}"
+              alt=""
+              class="postimage"
+              style="height: 250px; width: 400px"
+            /><br /><br />
+            {% endif %}
+
+        <div class="bottom-area">
+            <div class="button"><input type="file" name="image" value="{{post.image.url}}" />
+               <button class="update" type="'submit" href="/" >Update</button>
+               <button class="cancel" href="{url 'post:index'}">Cancel</button>
+            </div>
+        </div>        
+    </form>
+</section>
+{% endblock %}
+
+<!--The end of the post button-->
+
+<!--This is the request to post back on the page and everything that goes back-->
+
+
+      
+
+    <!--///////////////////////////////////////////////////////////////-->
