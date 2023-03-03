@@ -6,7 +6,7 @@ from .forms import PostForm
 
 def index(request):
     if request.method == 'POST':
-        form = PostForm(request.POST)
+        form = PostForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             return HttpResponseRedirect('/')
@@ -14,7 +14,7 @@ def index(request):
             return HttpResponseRedirect(form.errors.as_json())
 
 
-    posts = Post.objects.all()[:20]
+    posts = Post.objects.all().order_by('-created_at')[:20]
 
 
     return render(request, 'posts.html', 
@@ -30,12 +30,9 @@ def delete(request, post_id):
 
 def like(request, post_id):
     count = Post.objects.get(id= post_id)
-    if count.count == 0:
-        count.count += 1
-        count.save()
-    elif count.count >= 1:
-        count.count -= 1
-        count.save()
+    count.count += 1
+    count.save()
+    
     return HttpResponseRedirect('/')
 
 
